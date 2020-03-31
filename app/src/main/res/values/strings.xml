@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SafeNudesApp</string>
+    <string name="example_email">example@gmail.com</string>
+    <string name="password">password</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="name">Name</string>
+    <string name="safe_transfer">Safe Transfer</string>
+    <string name="create_account">Don\'t have an account?</string>
+    <string name="create_account_button">Create Account</string>
 </resources>
