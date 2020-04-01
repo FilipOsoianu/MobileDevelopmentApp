@@ -23,13 +23,13 @@ class ContactAdapter(private val contactList: List<ContactItem>) :RecyclerView.A
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val currentItem = contactList[position]
         holder.imageView.setImageResource(currentItem.imageResource)
-        holder.textView.text = currentItem.text1
+        holder.textView.text = currentItem.name
     }
 
     override fun getItemCount() = contactList.size
 
     class ContactViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val imageView: ImageView = itemView.contact_image
-        val textView: TextView = itemView.contact_text
+        val textView: TextView = itemView.contact_name
     }
 }
