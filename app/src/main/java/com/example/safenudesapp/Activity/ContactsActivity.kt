@@ -28,10 +28,7 @@ class ContactsActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
         }
-
         recycler_view.adapter = adapter
         recycler_view.layoutManager = LinearLayoutManager(this@ContactsActivity)
     }
-
-
 }
