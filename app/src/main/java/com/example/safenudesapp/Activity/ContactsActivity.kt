@@ -17,25 +17,20 @@ class ContactsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_users)
         val usersRepository = UsersRepository()
         val users = mutableListOf<User>()
-
-        for (i in 1..2) {
-            users.add(User("Filip", 2, "dada", "dadada"))
-        }
+        val adapter = UsersAdapter(users)
 
         GlobalScope.launch {
-//            val list = usersRepository.fetchUsers()
-//            for (user in list) {
-//                users.add(user)
-//            }
-//            println(users)
+            val list = usersRepository.fetchUsers()
+            for (user in list) {
+                users.add(user)
+            }
+            runOnUiThread {
+                adapter.notifyDataSetChanged()
+            }
         }
 
-
-
-            recycler_view.apply {
-                layoutManager = LinearLayoutManager(this@ContactsActivity)
-                adapter = UsersAdapter(users)
-            }
+        recycler_view.adapter = adapter
+        recycler_view.layoutManager = LinearLayoutManager(this@ContactsActivity)
     }
 
 
