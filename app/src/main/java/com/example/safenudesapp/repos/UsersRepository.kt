@@ -48,8 +48,16 @@ class UsersRepository {
         return retrofitUser().fetchFriends(id)
     }
 
-    suspend fun updateRelationship(userId: Int, friendId: Int, body: JsonObject): LoginResponse{
+    suspend fun updateRelationship(userId: Int, friendId: Int, body: JsonObject): LoginResponse {
         return retrofitUser().updateRelationship(userId, friendId, body)
+    }
+
+    suspend fun sendFriendRequest(userId: Int, body: JsonObject): LoginResponse {
+        return retrofitUser().sendFriendRequest(userId, body)
+    }
+
+    suspend fun createChat(email: String, body: JsonObject): LoginResponse {
+        return retrofitChat().createChat(email, body)
     }
 
     suspend fun getMessages(id: Int): List<Message> {
@@ -60,8 +68,8 @@ class UsersRepository {
         return retrofitChat().fetchChats(email)
     }
 
-    suspend fun sendMessage(chatId: Int, body: JsonObject) :LoginResponse{
-       return retrofitChat().sendMessage(chatId, body)
+    suspend fun sendMessage(chatId: Int, body: JsonObject): LoginResponse {
+        return retrofitChat().sendMessage(chatId, body)
     }
 
     suspend fun getFriendRequests(id: Int): List<User> {
@@ -71,4 +79,5 @@ class UsersRepository {
     suspend fun getAccountInfo(email: String): AccountInfo {
         return retrofitUser().fetchAccountInfo(email)
     }
+
 }

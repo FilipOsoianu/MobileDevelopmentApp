@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.safenudesapp.Activity.ChatActivity
+import com.example.safenudesapp.JsonAdapter.CreateChat
 import com.example.safenudesapp.JsonAdapter.Relationship
 import com.example.safenudesapp.JsonAdapter.User
 import com.example.safenudesapp.R
@@ -37,17 +38,23 @@ class RequestAdapter(private val users: List<User>) :
         holder.name.text = users[position].name
         val sharedPref: SharedPreferences = holder.context.getSharedPreferences("user", 0)
         val id = sharedPref.getInt("id", 0)
+        val email = sharedPref.getString("email", "")
 
 
         holder.buttonAccept.setOnClickListener {
             val updateRelationship = Relationship(2)
             val bodyJsonString = Gson().toJson(updateRelationship)
             val bodyJsonObject = JsonParser.parseString(bodyJsonString)
+
+            val createChat = CreateChat(users[position].id)
+            val bodyJsonStringChat = Gson().toJson(createChat)
+            val bodyJsonObjectChat = JsonParser.parseString(bodyJsonStringChat)
             GlobalScope.launch {
                 usersRepository.updateRelationship(
                     id, users[position].id,
                     bodyJsonObject as JsonObject
                 )
+                usersRepository.createChat(email.toString(), bodyJsonObjectChat as JsonObject)
             }
         }
 

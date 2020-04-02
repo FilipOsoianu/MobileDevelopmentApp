@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+    android:layout_margin="2dp">
 
     <RelativeLayout
         android:id="@+id/button_open_friend"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:padding="2dp"
+        android:background="@color/backgroundColor"
         android:clickable="true"
         android:focusable="true">
 
@@ -28,8 +29,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/user_image"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
 
 

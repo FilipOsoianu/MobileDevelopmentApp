@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.safenudesapp.JsonAdapter.Relationship
+import com.example.safenudesapp.JsonAdapter.FriendRequest
 import com.example.safenudesapp.JsonAdapter.User
 import com.example.safenudesapp.R
 import com.example.safenudesapp.repos.UsersRepository
@@ -35,15 +35,20 @@ class SendFriendshipAdapter(private val users: List<User>) :
         val id = sharedPref.getInt("id", 0)
         holder.name.text = users[position].name
         holder.button.setOnClickListener {
-            val updateRelationship = Relationship(1)
+            val updateRelationship = FriendRequest(id)
             val bodyJsonString = Gson().toJson(updateRelationship)
             val bodyJsonObject = JsonParser.parseString(bodyJsonString)
-
+            println(bodyJsonString)
             GlobalScope.launch {
-                usersRepository.updateRelationship(
-                    id, users[position].id,
-                    bodyJsonObject as JsonObject
-                )
+                kotlin.runCatching {
+
+                    usersRepository.sendFriendRequest(
+                        users[position].id,
+                        bodyJsonObject as JsonObject
+                    )
+                }.onFailure {
+                    println(it.printStackTrace())
+                }
             }
         }
     }

@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="2dp"
+        android:background="@color/backgroundColor">
 
         <ImageView
             android:id="@+id/user_image"
@@ -25,7 +26,8 @@
             android:layout_marginTop="6dp"
             android:layout_toEndOf="@+id/user_image"
             android:text="line_1"
-            android:textSize="30sp"
+            android:textSize="20sp"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="30dp"
-            android:text="Button" />
+            android:text="Request" />
 
 
     </RelativeLayout>

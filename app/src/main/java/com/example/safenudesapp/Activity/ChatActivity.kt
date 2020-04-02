@@ -84,6 +84,8 @@ class ChatActivity : AppCompatActivity() {
                 (chat.userTwo == userId && chat.userOne == friendId)
             ) {
                 return chat.chatId
+            }else{
+
             }
         }
         return 0

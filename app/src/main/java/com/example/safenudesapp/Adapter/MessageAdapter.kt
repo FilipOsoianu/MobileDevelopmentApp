@@ -29,10 +29,9 @@ class MessageAdapter(private val messages: List<Message>) :
         if (messages[position].fromUser == id) {
             holder.message.text = messages[position].message
             holder.messageBox.setBackgroundColor(ContextCompat.getColor(holder.context, R.color.accentColor))
-//            holder.messageBox.setlayou
         }else{
             holder.message.text = messages[position].message
-            holder.messageBox.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            holder.messageBox.setBackgroundColor(ContextCompat.getColor(holder.context, R.color.secondAccentColor))
         }
     }
 

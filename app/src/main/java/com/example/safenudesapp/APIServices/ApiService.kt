@@ -59,4 +59,15 @@ interface ApiService {
         @Body body: JsonObject
     ): LoginResponse
 
+    @POST("/api/users/{userId}/friends")
+    suspend fun sendFriendRequest(
+        @Path("userId") userId: Int,
+        @Body body: JsonObject
+    ): LoginResponse
+
+    @POST("/api/chats")
+    suspend fun createChat(
+        @Query("email") email: String,
+        @Body body: JsonObject
+    ): LoginResponse
 }
