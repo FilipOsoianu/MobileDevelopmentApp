@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.safenudesapp.Activity.ChatActivity
 import com.example.safenudesapp.JsonAdapter.User
 import com.example.safenudesapp.R
-import kotlinx.android.synthetic.main.user_item.view.*
+import kotlinx.android.synthetic.main.user_item.view.user_name
+import kotlinx.android.synthetic.main.user_send_item.view.*
 
 
 class SendFriendshipAdapter(private val users: List<User>) :
@@ -25,9 +26,7 @@ class SendFriendshipAdapter(private val users: List<User>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = users[position].name
         holder.button.setOnClickListener {
-            val intent = Intent(holder.context, ChatActivity::class.java)
-            intent.putExtra("EXTRA_SESSION_ID", "jora");
-            holder.context.startActivity(intent)
+
         }
     }
 
@@ -35,7 +34,7 @@ class SendFriendshipAdapter(private val users: List<User>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.user_name
-        val button: Button = itemView.button
+        val button: Button = itemView.button_send_friend_request
         val context = itemView.getContext();
     }
 }
