@@ -2,7 +2,9 @@ package com.example.safenudesapp.repos
 
 import com.example.safenudesapp.APIServices.ApiService
 import com.example.safenudesapp.JsonAdapter.User
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -27,10 +29,11 @@ class UsersRepository {
         return retrofitUser().fetchUsers()
     }
 
-
-
     suspend fun login(loginEncoded: String): String {
         return retrofitAuth().login(loginEncoded).message
     }
 
+    suspend fun registration(body: JsonObject): String {
+        return retrofitAuth().registration(body).message
+    }
 }

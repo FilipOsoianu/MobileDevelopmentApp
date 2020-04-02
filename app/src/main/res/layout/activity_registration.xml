@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/registration_login"
+        android:id="@+id/registration_email"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -67,10 +67,10 @@
         android:inputType="textPassword"
         android:textColor="@color/gray"
         android:textColorHint="@color/gray"
-        app:layout_constraintEnd_toEndOf="@+id/registration_login"
+        app:layout_constraintEnd_toEndOf="@+id/registration_email"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/registration_login"
-        app:layout_constraintTop_toBottomOf="@+id/registration_login" />
+        app:layout_constraintStart_toStartOf="@+id/registration_email"
+        app:layout_constraintTop_toBottomOf="@+id/registration_email" />
 
 
     <EditText
@@ -96,9 +96,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:background="#00FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/registration_login"
-        app:layout_constraintEnd_toStartOf="@+id/registration_login"
-        app:layout_constraintTop_toTopOf="@+id/registration_login"
+        app:layout_constraintBottom_toBottomOf="@+id/registration_email"
+        app:layout_constraintEnd_toStartOf="@+id/registration_email"
+        app:layout_constraintTop_toTopOf="@+id/registration_email"
         app:srcCompat="@drawable/ic_email" />
 
     <ImageView
@@ -131,4 +131,20 @@
         app:layout_constraintEnd_toStartOf="@+id/registration_confirm_password"
         app:layout_constraintTop_toTopOf="@+id/registration_confirm_password"
         app:srcCompat="@drawable/ic_lock" />
+
+
+    <Button
+        android:id="@+id/registration_button"
+        android:layout_width="169dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="168dp"
+        android:backgroundTint="@color/accentColor"
+        android:text="Create Account"
+        android:textAllCaps="false"
+        android:textSize="25sp"
+        app:layout_constraintCircleRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/registration_confirm_password"
+        app:layout_constraintStart_toStartOf="@+id/registration_confirm_password"
+        app:layout_constraintTop_toBottomOf="@+id/registration_confirm_password" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

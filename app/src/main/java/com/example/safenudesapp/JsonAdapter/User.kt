@@ -2,7 +2,6 @@ package com.example.safenudesapp.JsonAdapter
 
 import com.google.gson.annotations.SerializedName
 
-
 data class User(
     @SerializedName("Name")
     val name: String,
