@@ -16,6 +16,7 @@ import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ChatActivity : AppCompatActivity() {
@@ -32,17 +33,31 @@ class ChatActivity : AppCompatActivity() {
         val chatId = mutableListOf<Int>()
         val adapter = MessageAdapter(messages)
 
+        fun fetch() {
+            GlobalScope.launch {
+                kotlin.runCatching {
+                    val messageList = usersRepository.getMessages(chatId.first())
+                    messages.clear()
+                    for (message in messageList) {
+                        messages.add(message)
+                    }
+                    runOnUiThread {
+                        adapter.notifyDataSetChanged()
+                    }
+                    delay(1000)
+                    fetch()
+                }.onFailure {
+                    println(it.printStackTrace())
+                }
+            }
+        }
+
         GlobalScope.launch {
             val chatList = usersRepository.getChats(userEmail.toString())
             chatId.add(getChatId(chatList, userId, friendId))
-            val messageList = usersRepository.getMessages(chatId.first())
-            for (message in messageList) {
-                messages.add(message)
-            }
-            runOnUiThread {
-                adapter.notifyDataSetChanged()
-            }
+            fetch()
         }
+
         button_send_message.setOnClickListener {
             GlobalScope.launch {
                 kotlin.runCatching {
