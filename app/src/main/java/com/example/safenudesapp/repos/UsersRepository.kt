@@ -48,6 +48,10 @@ class UsersRepository {
         return retrofitUser().fetchFriends(id)
     }
 
+    suspend fun updateRelationship(userId: Int, friendId: Int, body: JsonObject): LoginResponse{
+        return retrofitUser().updateRelationship(userId, friendId, body)
+    }
+
     suspend fun getMessages(id: Int): List<Message> {
         return retrofitChat().fetchMessage(id)
     }

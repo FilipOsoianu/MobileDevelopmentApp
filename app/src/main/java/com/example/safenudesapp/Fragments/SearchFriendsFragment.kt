@@ -12,6 +12,7 @@ import com.example.safenudesapp.R
 import com.example.safenudesapp.repos.UsersRepository
 import kotlinx.android.synthetic.main.fragment_search_friends.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -31,16 +32,21 @@ class SearchFriendsFragment : Fragment() {
         val usersRepository = UsersRepository()
         val users = mutableListOf<User>()
         val adapter = SendFriendshipAdapter(users)
-
-        GlobalScope.launch {
-            val list = usersRepository.getUsers()
-            for (user in list) {
-                users.add(user)
-            }
-            activity?.runOnUiThread {
-                adapter.notifyDataSetChanged()
+        fun fetch() {
+            GlobalScope.launch {
+                users.clear()
+                val list = usersRepository.getUsers()
+                for (user in list) {
+                    users.add(user)
+                }
+                activity?.runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+                delay(1000)
+                fetch()
             }
         }
+        fetch()
         recycler_view_search_friends.adapter = adapter
         recycler_view_search_friends.layoutManager = LinearLayoutManager(activity)
     }

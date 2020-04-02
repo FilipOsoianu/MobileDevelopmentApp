@@ -14,6 +14,7 @@ import com.example.safenudesapp.repos.UsersRepository
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.fragment_search_friends.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -35,15 +36,21 @@ class ContactsFragment : Fragment() {
         val adapter = ContactsAdapter(users)
         val sharedPref: SharedPreferences = activity!!.getSharedPreferences("user", 0)
         val id = sharedPref.getInt("id", 0)
-        GlobalScope.launch {
-            val list = usersRepository.getFriends(id)
-            for (user in list) {
-                users.add(user)
-            }
-            activity?.runOnUiThread {
-                adapter.notifyDataSetChanged()
+        fun fetch() {
+            GlobalScope.launch {
+                users.clear()
+                val list = usersRepository.getFriends(id)
+                for (user in list) {
+                    users.add(user)
+                }
+                activity?.runOnUiThread {
+                    adapter.notifyDataSetChanged()
+                }
+            delay(1000)
+            fetch()
             }
         }
+        fetch()
         recycler_view_contacts.adapter = adapter
         recycler_view_contacts.layoutManager = LinearLayoutManager(activity)
     }

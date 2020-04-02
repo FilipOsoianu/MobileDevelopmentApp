@@ -52,4 +52,11 @@ interface ApiService {
         @Body body: JsonObject
     ): LoginResponse
 
+    @PUT("/api/users/{userId}/friends/{friendId}")
+    suspend fun updateRelationship(
+        @Path("userId") userId: Int,
+        @Path("friendId") friendId: Int,
+        @Body body: JsonObject
+    ): LoginResponse
+
 }
