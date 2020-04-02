@@ -1,5 +1,6 @@
 package com.example.safenudesapp.Fragments
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,13 +27,16 @@ class RequestsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_requests, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usersRepository = UsersRepository()
         val users = mutableListOf<User>()
         val adapter = UsersAdapter(users)
+        val sharedPref: SharedPreferences = activity!!.getSharedPreferences("user", 0)
+        val id = sharedPref.getInt("id", 0)
 
         GlobalScope.launch {
-            val list = usersRepository.getFriendRequests()
+            val list = usersRepository.getFriendRequests(id)
             for (user in list) {
                 users.add(user)
             }

@@ -23,8 +23,8 @@ class MenuActivity : AppCompatActivity() {
 
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
-        val sharedPref: SharedPreferences = getSharedPreferences("user", 0)
 
+        val sharedPref: SharedPreferences = getSharedPreferences("user", 0)
         val email = sharedPref.getString("email", "")
         val id = sharedPref.getInt("id", 0)
     }

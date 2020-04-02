@@ -18,11 +18,15 @@ interface ApiService {
         @Header("credentials") loginPasswordEncoder: String
     ): LoginResponse
 
-    @GET("/api/users/1/friends")
-    suspend fun fetchFriends(): List<User>
+    @GET("/api/users/{id}/friends")
+    suspend fun fetchFriends(
+        @Path("id") id: Int
+    ): List<User>
 
-    @GET("/api/users/2/requests")
-    suspend fun fetchFriendRequests(): List<User>
+    @GET("/api/users/{id}/requests")
+    suspend fun fetchFriendRequests(
+        @Path("id") id: Int
+    ): List<User>
 
     @GET("/api/users")
     suspend fun fetchAccountInfo(

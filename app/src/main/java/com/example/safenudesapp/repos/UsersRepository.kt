@@ -38,12 +38,12 @@ class UsersRepository {
         return retrofitAuth().registration(body).message
     }
 
-    suspend fun getFriends(): List<User> {
-        return retrofitUser().fetchFriends()
+    suspend fun getFriends(id :Int): List<User> {
+        return retrofitUser().fetchFriends(id)
     }
 
-    suspend fun getFriendRequests(): List<User> {
-        return retrofitUser().fetchFriendRequests()
+    suspend fun getFriendRequests(id: Int): List<User> {
+        return retrofitUser().fetchFriendRequests(id)
     }
 
     suspend fun getAccountInfo(email: String): AccountInfo {
