@@ -52,7 +52,7 @@ class RegistrationActivity : AppCompatActivity() {
                     }
                 }.onSuccess {
                     val contactsActivity =
-                        Intent(this@RegistrationActivity, ContactsActivity::class.java)
+                        Intent(this@RegistrationActivity, MenuActivity::class.java)
                     startActivity(contactsActivity)
                 }.onFailure {
                     runOnUiThread() {

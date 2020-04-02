@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
                 }.onSuccess {
                     val contactsActivity =
-                        Intent(this@LoginActivity, ContactsActivity::class.java)
+                        Intent(this@LoginActivity, MenuActivity::class.java)
                     startActivity(contactsActivity)
                 }.onFailure {
                     runOnUiThread() {
