@@ -1,5 +1,6 @@
 package com.example.safenudesapp.Activity
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.safenudesapp.Adapter.ViewPagerAdapter
@@ -22,5 +23,9 @@ class MenuActivity : AppCompatActivity() {
 
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
+        val sharedPref: SharedPreferences = getSharedPreferences("user", 0)
+
+        val email = sharedPref.getString("email", "")
+        val id = sharedPref.getInt("id", 0)
     }
 }

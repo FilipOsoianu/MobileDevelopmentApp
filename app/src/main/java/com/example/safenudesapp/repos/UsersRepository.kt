@@ -1,6 +1,8 @@
 package com.example.safenudesapp.repos
 
 import com.example.safenudesapp.APIServices.ApiService
+import com.example.safenudesapp.JsonAdapter.Account
+import com.example.safenudesapp.JsonAdapter.AccountInfo
 import com.example.safenudesapp.JsonAdapter.User
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -42,5 +44,9 @@ class UsersRepository {
 
     suspend fun getFriendRequests(): List<User> {
         return retrofitUser().fetchFriendRequests()
+    }
+
+    suspend fun getAccountInfo(email: String): AccountInfo {
+        return retrofitUser().fetchAccountInfo(email)
     }
 }

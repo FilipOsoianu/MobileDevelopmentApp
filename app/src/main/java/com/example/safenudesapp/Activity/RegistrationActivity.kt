@@ -10,7 +10,6 @@ import com.example.safenudesapp.repos.UsersRepository
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import kotlinx.android.synthetic.main.activity_login.registration_password
 import kotlinx.android.synthetic.main.activity_registration.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

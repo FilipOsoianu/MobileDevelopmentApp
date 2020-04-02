@@ -1,13 +1,12 @@
 package com.example.safenudesapp.APIServices
 
+import com.example.safenudesapp.JsonAdapter.Account
+import com.example.safenudesapp.JsonAdapter.AccountInfo
 import com.example.safenudesapp.JsonAdapter.LoginResponse
 import com.example.safenudesapp.JsonAdapter.User
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface ApiService {
@@ -25,9 +24,15 @@ interface ApiService {
     @GET("/api/users/2/requests")
     suspend fun fetchFriendRequests(): List<User>
 
+    @GET("/api/users")
+    suspend fun fetchAccountInfo(
+        @Query("email") email: String
+    ): AccountInfo
+
+
     @POST("/api/registration")
     suspend fun registration(
-       @Body body: JsonObject
+        @Body body: JsonObject
     ): LoginResponse
 
 }

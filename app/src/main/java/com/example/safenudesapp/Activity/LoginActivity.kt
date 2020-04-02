@@ -1,9 +1,12 @@
 package com.example.safenudesapp.Activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.example.safenudesapp.R
@@ -26,16 +29,24 @@ class LoginActivity : AppCompatActivity() {
             startActivity(registrationActivityIntent)
         }
         login_button.setOnClickListener {
+            val login = login_email.text.toString()
+            val password = login_password.text.toString()
             val loginPass =
-                registration_email.text.toString() + ":" + registration_password.text.toString()
+                login + ":" + password
             val encoded = Base64.getEncoder().encodeToString(loginPass.toByteArray())
             GlobalScope.launch {
                 kotlin.runCatching {
                     usersRepository.login(encoded)
-
                 }.onSuccess {
-                    val contactsActivity =
-                        Intent(this@LoginActivity, MenuActivity::class.java)
+                    val id = usersRepository.getAccountInfo(login).id
+                    val sharedPref: SharedPreferences = getSharedPreferences("user", 0)
+                    val editor = sharedPref.edit()
+                    editor.putString("email", login)
+                    editor.putInt("id", id)
+                    editor.apply()
+
+
+                    val contactsActivity = Intent(this@LoginActivity, MenuActivity::class.java)
                     startActivity(contactsActivity)
                 }.onFailure {
                     runOnUiThread() {
@@ -51,6 +62,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }
