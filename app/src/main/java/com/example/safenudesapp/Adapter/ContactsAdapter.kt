@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.safenudesapp.Activity.ChatActivity
@@ -35,7 +35,7 @@ class ContactsAdapter(private val users: List<User>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.user_name
-        val button: Button = itemView.button
+        val button: RelativeLayout = itemView.button_open_friend
         val context = itemView.getContext();
     }
 }
