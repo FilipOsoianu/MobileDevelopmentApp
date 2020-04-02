@@ -20,7 +20,7 @@ class ContactsActivity : AppCompatActivity() {
         val adapter = UsersAdapter(users)
 
         GlobalScope.launch {
-            val list = usersRepository.fetchUsers()
+            val list = usersRepository.getUsers()
             for (user in list) {
                 users.add(user)
             }

@@ -2,7 +2,6 @@ package com.example.safenudesapp.repos
 
 import com.example.safenudesapp.APIServices.ApiService
 import com.example.safenudesapp.JsonAdapter.User
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import retrofit2.Retrofit
@@ -25,7 +24,7 @@ class UsersRepository {
             .create(ApiService::class.java)
     }
 
-    suspend fun fetchUsers(): List<User> {
+    suspend fun getUsers(): List<User> {
         return retrofitUser().fetchUsers()
     }
 
@@ -35,5 +34,13 @@ class UsersRepository {
 
     suspend fun registration(body: JsonObject): String {
         return retrofitAuth().registration(body).message
+    }
+
+    suspend fun getFriends(): List<User> {
+        return retrofitUser().fetchFriends()
+    }
+
+    suspend fun getFriendRequests(): List<User> {
+        return retrofitUser().fetchFriendRequests()
     }
 }
