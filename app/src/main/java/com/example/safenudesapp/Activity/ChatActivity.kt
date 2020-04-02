@@ -61,7 +61,6 @@ class ChatActivity : AppCompatActivity() {
         button_send_message.setOnClickListener {
             GlobalScope.launch {
                 kotlin.runCatching {
-
                     val message = SendMessage(friendId, userId, chat_input_text.text.toString())
                     val bodyJsonString = Gson().toJson(message)
                     val bodyJsonObject = JsonParser.parseString(bodyJsonString)
@@ -71,7 +70,7 @@ class ChatActivity : AppCompatActivity() {
                 }.onFailure {
                     println(it.printStackTrace())
                 }.onSuccess {
-                    println("uraar")
+                    recycler_view_messages.smoothScrollToPosition(adapter.itemCount);
                 }
             }
         }

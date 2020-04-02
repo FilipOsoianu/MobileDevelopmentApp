@@ -8,8 +8,8 @@ tools:context=".Activity.ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_messages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:clipToPadding="false"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/chat_input_text"
