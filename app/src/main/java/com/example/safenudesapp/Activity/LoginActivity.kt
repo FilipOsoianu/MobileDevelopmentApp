@@ -44,8 +44,6 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("email", login)
                     editor.putInt("id", id)
                     editor.apply()
-
-
                     val contactsActivity = Intent(this@LoginActivity, MenuActivity::class.java)
                     startActivity(contactsActivity)
                 }.onFailure {

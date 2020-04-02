@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.safenudesapp.Adapter.UsersAdapter
+import com.example.safenudesapp.Adapter.SendFriendshipAdapter
 import com.example.safenudesapp.JsonAdapter.User
 import com.example.safenudesapp.R
 import com.example.safenudesapp.repos.UsersRepository
@@ -30,7 +30,7 @@ class SearchFriendsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usersRepository = UsersRepository()
         val users = mutableListOf<User>()
-        val adapter = UsersAdapter(users)
+        val adapter = SendFriendshipAdapter(users)
 
         GlobalScope.launch {
             val list = usersRepository.getUsers()
@@ -41,7 +41,7 @@ class SearchFriendsFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-        recycler_view.adapter = adapter
-        recycler_view.layoutManager = LinearLayoutManager(activity)
+        recycler_view_search_friends.adapter = adapter
+        recycler_view_search_friends.layoutManager = LinearLayoutManager(activity)
     }
 }

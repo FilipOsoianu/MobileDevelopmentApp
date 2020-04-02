@@ -6,7 +6,7 @@ android:layout_height="match_parent"
 tools:context=".Fragments.SearchFriendsFragment">
 
 <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recycler_view"
+    android:id="@+id/recycler_view_search_friends"
     android:padding="10dp"
     android:clipToPadding="false"
     android:layout_width="match_parent"

@@ -7,10 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.safenudesapp.Adapter.UsersAdapter
+import com.example.safenudesapp.Adapter.RequestAdapter
 import com.example.safenudesapp.JsonAdapter.User
 import com.example.safenudesapp.R
 import com.example.safenudesapp.repos.UsersRepository
+import kotlinx.android.synthetic.main.fragment_requests.*
 import kotlinx.android.synthetic.main.fragment_search_friends.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,7 +32,7 @@ class RequestsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val usersRepository = UsersRepository()
         val users = mutableListOf<User>()
-        val adapter = UsersAdapter(users)
+        val adapter = RequestAdapter(users)
         val sharedPref: SharedPreferences = activity!!.getSharedPreferences("user", 0)
         val id = sharedPref.getInt("id", 0)
 
@@ -44,7 +45,7 @@ class RequestsFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-        recycler_view.adapter = adapter
-        recycler_view.layoutManager = LinearLayoutManager(activity)
+        recycler_view_requests.adapter = adapter
+        recycler_view_requests.layoutManager = LinearLayoutManager(activity)
     }
 }
