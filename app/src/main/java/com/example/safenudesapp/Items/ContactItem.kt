@@ -1,3 +1,0 @@
-package com.example.safenudesapp.Items
-
-data class ContactItem(val imageResource: Int, val name: String )
