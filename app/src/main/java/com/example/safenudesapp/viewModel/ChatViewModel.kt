@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.safenudesapp.services.model.Chat
 import com.example.safenudesapp.services.model.Message
+import com.example.safenudesapp.services.repos.ChatRepository
 import com.example.safenudesapp.services.repos.UsersRepository
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
@@ -12,14 +13,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ChatViewModel : ViewModel() {
-    private val usersRepository = UsersRepository()
+    private val chatRepository = ChatRepository()
     val listOfMessages = MutableLiveData<List<Message>>()
     val listOfChats = MutableLiveData<List<Chat>>()
 
     fun fetchMessage(id: Int) {
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                usersRepository.getMessages(id)
+                chatRepository.getMessages(id)
             }.onSuccess {
                 listOfMessages.postValue(it)
                 delay(1000)
@@ -33,7 +34,7 @@ class ChatViewModel : ViewModel() {
     fun fetchChatId(email: String){
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                usersRepository.getChats(email)
+                chatRepository.getChats(email)
             }.onSuccess {
                 listOfChats.postValue(it)
             }.onFailure {
@@ -42,11 +43,10 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-
     fun sendMessage(chatId: Int, body: JsonObject){
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
-                usersRepository.sendMessage(chatId, body)
+                chatRepository.sendMessage(chatId, body)
             }.onSuccess {
             }.onFailure {
                 it.printStackTrace()

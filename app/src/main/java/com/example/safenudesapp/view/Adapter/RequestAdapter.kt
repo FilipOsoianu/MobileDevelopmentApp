@@ -11,6 +11,7 @@ import com.example.safenudesapp.services.model.CreateChat
 import com.example.safenudesapp.services.model.Relationship
 import com.example.safenudesapp.services.model.User
 import com.example.safenudesapp.R
+import com.example.safenudesapp.services.repos.ChatRepository
 import com.example.safenudesapp.services.repos.UsersRepository
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class RequestAdapter(private val users: List<User>) :
     RecyclerView.Adapter<RequestAdapter.ViewHolder>() {
+    private val chatRepository = ChatRepository()
     private val usersRepository = UsersRepository()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,7 +55,7 @@ class RequestAdapter(private val users: List<User>) :
                     id, users[position].id,
                     bodyJsonObject as JsonObject
                 )
-                usersRepository.createChat(email.toString(), bodyJsonObjectChat as JsonObject)
+                chatRepository.createChat(email.toString(), bodyJsonObjectChat as JsonObject)
             }
         }
 

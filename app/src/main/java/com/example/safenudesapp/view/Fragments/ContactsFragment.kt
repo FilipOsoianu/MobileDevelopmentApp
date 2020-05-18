@@ -21,8 +21,7 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
  */
 class ContactsFragment : Fragment() {
     private lateinit var contactsViewModel: ContactsViewModel
-
-
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

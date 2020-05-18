@@ -5,24 +5,15 @@ import com.google.gson.JsonObject
 import retrofit2.http.*
 
 
-interface ApiService {
+interface ApiServiceUsers {
     @GET("/api/users")
     suspend fun fetchUsers(): List<User>
 
-    @GET("/api/login")
-    suspend fun login(
-        @Header("credentials") loginPasswordEncoder: String
-    ): LoginResponse
 
     @GET("/api/users/{id}/friends")
     suspend fun fetchFriends(
         @Path("id") id: Int
     ): List<User>
-
-    @GET("/api/chats/{id}/messages")
-    suspend fun fetchMessage(
-        @Path("id") id: Int
-    ): List<Message>
 
 
     @GET("/api/users/{id}/requests")
@@ -35,21 +26,6 @@ interface ApiService {
         @Query("email") email: String
     ): AccountInfo
 
-    @GET("/api/chats")
-    suspend fun fetchChats(
-        @Query("email") email: String
-    ): List<Chat>
-
-    @POST("/api/registration")
-    suspend fun registration(
-        @Body body: JsonObject
-    ): LoginResponse
-
-    @POST("/api/chats/{chatId}/messages")
-    suspend fun sendMessage(
-        @Path("chatId") chatId: Int,
-        @Body body: JsonObject
-    ): LoginResponse
 
     @PUT("/api/users/{userId}/friends/{friendId}")
     suspend fun updateRelationship(
@@ -61,12 +37,6 @@ interface ApiService {
     @POST("/api/users/{userId}/friends")
     suspend fun sendFriendRequest(
         @Path("userId") userId: Int,
-        @Body body: JsonObject
-    ): LoginResponse
-
-    @POST("/api/chats")
-    suspend fun createChat(
-        @Query("email") email: String,
         @Body body: JsonObject
     ): LoginResponse
 }
