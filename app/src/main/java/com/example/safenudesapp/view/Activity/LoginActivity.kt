@@ -43,26 +43,30 @@ class LoginActivity : AppCompatActivity() {
         loginviewmodel.response.observe(this, Observer {
             val response = it
             if (response != "fail") {
-
                 val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
             } else {
-                val builder = AlertDialog.Builder(this@LoginActivity)
-                builder.setTitle("Error")
-                builder.setMessage("Wrong Login or password")
-                builder.setIcon(android.R.drawable.ic_dialog_alert)
-                val alertDialog: AlertDialog = builder.create()
-                alertDialog.setCancelable(true)
-                alertDialog.show()
+                raiseError("Wrong Login or password")
             }
         })
 
         login_button.setOnClickListener {
             val login = login_email.text.toString()
             val password = login_password.text.toString()
-            val loginPass = login + ":" + password
+            val loginPass = "$login:$password"
             val encoded = Base64.getEncoder().encodeToString(loginPass.toByteArray())
             loginviewmodel.login(encoded, login)
         }
+    }
+
+
+    private fun raiseError(error: String) {
+        val builder = AlertDialog.Builder(this@LoginActivity)
+        builder.setTitle("Error")
+        builder.setMessage(error)
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(true)
+        alertDialog.show()
     }
 }

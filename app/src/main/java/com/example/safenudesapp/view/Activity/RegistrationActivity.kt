@@ -25,17 +25,10 @@ class RegistrationActivity : AppCompatActivity() {
         registrationviewmodel.response.observe(this, Observer {
             val response = it
             if (response == "Please check and enter unique code ...") {
-                val contactsActivity =
-                    Intent(this@RegistrationActivity, MenuActivity::class.java)
+                val contactsActivity = Intent(this@RegistrationActivity, MenuActivity::class.java)
                 startActivity(contactsActivity)
             } else {
-                val builder = AlertDialog.Builder(this@RegistrationActivity)
-                builder.setTitle("Error")
-                builder.setMessage("Some data are not valid")
-                builder.setIcon(android.R.drawable.ic_dialog_alert)
-                val alertDialog: AlertDialog = builder.create()
-                alertDialog.setCancelable(true)
-                alertDialog.show()
+                raiseError("Some data are not valid")
             }
         })
 
@@ -45,26 +38,42 @@ class RegistrationActivity : AppCompatActivity() {
             val confirmPassword = registration_confirm_password.text.toString()
             val name = registration_name.text.toString()
             val avatar = "Hi"
-            val account = Account(
-                email,
-                password,
-                name,
-                avatar
-            )
-            val bodyJsonString = Gson().toJson(account)
-            val bodyJsonObject = JsonParser.parseString(bodyJsonString)
-            if (password != confirmPassword) {
-                val builder = AlertDialog.Builder(this@RegistrationActivity)
-                builder.setTitle("Error")
-                builder.setMessage("passwords not match")
-                builder.setIcon(android.R.drawable.ic_dialog_alert)
-                val alertDialog: AlertDialog = builder.create()
-                alertDialog.setCancelable(true)
-                alertDialog.show()
+            if (isValidEmail(email)) {
+                if (isPasswordValid(password, confirmPassword)) {
+                    val account = Account(
+                        email,
+                        password,
+                        name,
+                        avatar
+                    )
+                    val bodyJsonString = Gson().toJson(account)
+                    val bodyJsonObject = JsonParser.parseString(bodyJsonString)
+                    registrationviewmodel.registration(bodyJsonObject as JsonObject);
+                } else {
+                    raiseError("passwords not match")
+                }
             } else {
-                registrationviewmodel.registration(bodyJsonObject as JsonObject);
+                raiseError("Not valid email")
             }
         }
+    }
+
+   fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun isPasswordValid(password: String, confirmPassword: String): Boolean {
+        return password == confirmPassword
+    }
+
+    private fun raiseError(error: String) {
+        val builder = AlertDialog.Builder(this@RegistrationActivity)
+        builder.setTitle("Error")
+        builder.setMessage(error)
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(true)
+        alertDialog.show()
     }
 
 }
