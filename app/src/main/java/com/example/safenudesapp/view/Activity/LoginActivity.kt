@@ -16,7 +16,7 @@ import java.util.*
 
 class LoginActivity : AppCompatActivity() {
     //    private val usersRepository = UsersRepository()
-    private lateinit var loginviewmodel: LoginViewModel
+    private lateinit var loginViewModel: LoginViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +28,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(registrationActivityIntent)
         }
 
-        loginviewmodel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        loginviewmodel.userDetails.observe(this, Observer {
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        loginViewModel.userDetails.observe(this, Observer {
             val user = it
             val id = user.id
             val sharedPref: SharedPreferences = getSharedPreferences("user", 0)
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
-        loginviewmodel.response.observe(this, Observer {
+        loginViewModel.response.observe(this, Observer {
             val response = it
             if (response != "fail") {
                 val intent = Intent(this, MenuActivity::class.java)
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             val password = login_password.text.toString()
             val loginPass = "$login:$password"
             val encoded = Base64.getEncoder().encodeToString(loginPass.toByteArray())
-            loginviewmodel.login(encoded, login)
+            loginViewModel.login(encoded, login)
         }
     }
 

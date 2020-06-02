@@ -1,5 +1,7 @@
 package com.example.safenudesapp.services.repos
 
+import android.content.res.Resources
+import com.example.safenudesapp.R
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import retrofit2.Retrofit

@@ -13,6 +13,7 @@ import com.example.safenudesapp.services.model.User
 import com.example.safenudesapp.R
 import com.example.safenudesapp.services.repos.ChatRepository
 import com.example.safenudesapp.services.repos.UsersRepository
+import com.example.safenudesapp.services.utils.UtilsJsonParse
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -38,36 +39,33 @@ class RequestAdapter(private val users: List<User>) :
         val sharedPref: SharedPreferences = holder.context.getSharedPreferences("user", 0)
         val id = sharedPref.getInt("id", 0)
         val email = sharedPref.getString("email", "")
+        val utilsJsonParse = UtilsJsonParse()
 
 
         holder.buttonAccept.setOnClickListener {
-            val updateRelationship =
-                Relationship(2)
-            val bodyJsonString = Gson().toJson(updateRelationship)
-            val bodyJsonObject = JsonParser.parseString(bodyJsonString)
+            val updateRelationship = Relationship(2)
+            val createChat = CreateChat(users[position].id)
 
-            val createChat =
-                CreateChat(users[position].id)
-            val bodyJsonStringChat = Gson().toJson(createChat)
-            val bodyJsonObjectChat = JsonParser.parseString(bodyJsonStringChat)
             GlobalScope.launch {
                 usersRepository.updateRelationship(
                     id, users[position].id,
-                    bodyJsonObject as JsonObject
+                    utilsJsonParse.convertRelationshipToJsonObject(updateRelationship)
                 )
-                chatRepository.createChat(email.toString(), bodyJsonObjectChat as JsonObject)
+                chatRepository.createChat(
+                    email.toString(),
+                    utilsJsonParse.convertCreateChatToJsonObject(createChat)
+                )
             }
         }
 
         holder.buttonDecline.setOnClickListener {
             val updateRelationship =
                 Relationship(0)
-            val bodyJsonString = Gson().toJson(updateRelationship)
-            val bodyJsonObject = JsonParser.parseString(bodyJsonString)
+
             GlobalScope.launch {
                 usersRepository.updateRelationship(
                     id, users[position].id,
-                    bodyJsonObject as JsonObject
+                    utilsJsonParse.convertRelationshipToJsonObject(updateRelationship)
                 )
             }
         }

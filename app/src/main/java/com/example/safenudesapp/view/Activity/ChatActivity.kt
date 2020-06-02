@@ -11,10 +11,8 @@ import com.example.safenudesapp.services.model.Chat
 import com.example.safenudesapp.services.model.Message
 import com.example.safenudesapp.services.model.SendMessage
 import com.example.safenudesapp.R
+import com.example.safenudesapp.services.utils.UtilsJsonParse
 import com.example.safenudesapp.viewModel.ChatViewModel
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : AppCompatActivity() {
@@ -32,7 +30,6 @@ class ChatActivity : AppCompatActivity() {
         val messages = mutableListOf<Message>()
         val chatId = mutableListOf<Int>()
         val adapter = MessageAdapter(messages)
-
 
         chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
         chatViewModel.listOfChats.observe(this, Observer {
@@ -60,9 +57,9 @@ class ChatActivity : AppCompatActivity() {
                         userId,
                         chat_input_text.text.toString()
                     )
-                val bodyJsonString = Gson().toJson(message)
-                val bodyJsonObject = JsonParser.parseString(bodyJsonString)
-                chatViewModel.sendMessage(chatId.first(), bodyJsonObject as JsonObject)
+                val utilsJsonParse = UtilsJsonParse()
+
+                chatViewModel.sendMessage(chatId.first(), utilsJsonParse.convertSendMessageToJsonObject(message))
                 recycler_view_messages.smoothScrollToPosition(adapter.itemCount);
             }
         }

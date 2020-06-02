@@ -10,6 +10,7 @@ import com.example.safenudesapp.R
 import com.example.safenudesapp.services.model.FriendRequest
 import com.example.safenudesapp.services.model.User
 import com.example.safenudesapp.services.repos.UsersRepository
+import com.example.safenudesapp.services.utils.UtilsJsonParse
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -32,18 +33,18 @@ class SendFriendshipAdapter(private val users: List<User>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val sharedPref: SharedPreferences = holder.context.getSharedPreferences("user", 0)
         val id = sharedPref.getInt("id", 0)
+        val utilsJsonParse = UtilsJsonParse()
+
         holder.name.text = users[position].name
         holder.button.setOnClickListener {
             val updateRelationship = FriendRequest(id)
-            val bodyJsonString = Gson().toJson(updateRelationship)
-            val bodyJsonObject = JsonParser.parseString(bodyJsonString)
-            println(bodyJsonString)
+
             GlobalScope.launch {
                 kotlin.runCatching {
 
                     usersRepository.sendFriendRequest(
                         users[position].id,
-                        bodyJsonObject as JsonObject
+                        utilsJsonParse.convertFriendRequestToJsonObject(updateRelationship)
                     )
                 }.onFailure {
                     println(it.printStackTrace())

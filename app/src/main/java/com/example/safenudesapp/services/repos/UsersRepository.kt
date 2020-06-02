@@ -1,5 +1,7 @@
 package com.example.safenudesapp.services.repos
 
+import android.content.res.Resources
+import com.example.safenudesapp.R
 import com.example.safenudesapp.services.model.*
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -14,8 +16,6 @@ class UsersRepository {
             .build()
             .create(ApiServiceUsers::class.java)
     }
-
-
     suspend fun getUsers(): List<User> {
         return retrofitUser().fetchUsers()
     }

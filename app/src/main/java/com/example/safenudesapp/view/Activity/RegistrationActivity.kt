@@ -8,10 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.safenudesapp.services.model.Account
 import com.example.safenudesapp.R
 import androidx.lifecycle.Observer
+import com.example.safenudesapp.services.utils.UtilsJsonParse
 import com.example.safenudesapp.viewModel.RegistrationViewModel
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : AppCompatActivity() {
@@ -38,6 +36,7 @@ class RegistrationActivity : AppCompatActivity() {
             val confirmPassword = registration_confirm_password.text.toString()
             val name = registration_name.text.toString()
             val avatar = "Hi"
+            val utilsJsonParse = UtilsJsonParse()
             if (isValidEmail(email)) {
                 if (isPasswordValid(password, confirmPassword)) {
                     val account = Account(
@@ -46,9 +45,7 @@ class RegistrationActivity : AppCompatActivity() {
                         name,
                         avatar
                     )
-                    val bodyJsonString = Gson().toJson(account)
-                    val bodyJsonObject = JsonParser.parseString(bodyJsonString)
-                    registrationviewmodel.registration(bodyJsonObject as JsonObject);
+                    registrationviewmodel.registration(utilsJsonParse.convertAccountToJsonObject(account));
                 } else {
                     raiseError("passwords not match")
                 }
@@ -58,11 +55,11 @@ class RegistrationActivity : AppCompatActivity() {
         }
     }
 
-   fun isValidEmail(email: String): Boolean {
+   private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    private fun isPasswordValid(password: String, confirmPassword: String): Boolean {
+   private fun isPasswordValid(password: String, confirmPassword: String): Boolean {
         return password == confirmPassword
     }
 

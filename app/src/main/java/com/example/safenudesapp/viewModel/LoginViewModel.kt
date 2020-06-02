@@ -24,6 +24,7 @@ class LoginViewModel : ViewModel() {
                 userDetails.postValue(user)
                 response.postValue(it)
             }.onFailure {
+                it.printStackTrace()
                 response.postValue("fail")
             }
         }
