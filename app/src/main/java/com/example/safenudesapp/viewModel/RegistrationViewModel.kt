@@ -1,5 +1,6 @@
 package com.example.safenudesapp.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,6 @@ class RegistrationViewModel : ViewModel() {
     val response = MutableLiveData<String>()
 
     fun registration(body: JsonObject) {
-        println(body)
         viewModelScope.launch(Dispatchers.Default) {
             kotlin.runCatching {
                 authRepository.registration(body)

@@ -28,7 +28,5 @@ class MenuActivity : AppCompatActivity() {
         tabs.getTabAt(0)?.text = "Friends"
         tabs.getTabAt(1)?.text = "Search Friends"
         tabs.getTabAt(2)?.text = "Requests"
-
-
     }
 }
